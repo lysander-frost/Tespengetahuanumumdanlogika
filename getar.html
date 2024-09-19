@@ -1,108 +1,103 @@
-<!doctype html>
-<html> 
- <head> 
-  <title>Vibration API Example</title> 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gambar dengan Video Autoplay & Loop</title>
   <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000000; /* Latar belakang awal hitam */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            color: #fff; /* Warna teks awal putih */
-            transition: background-color 0.5s; /* Animasi transisi untuk background */
-        }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+    #imageContainer {
+      display: none; /* Memiringkan gambar */
+    }
+    #videoContainer {
+      display: none;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="playButton">lihat kisi-kisi</button>
 
-        .blinking-text {
-            font-size: 82px;
-            font-weight: bold;
-            animation: blink 1s infinite;
-            text-align: center;
-            color: #fff; /* Warna teks awal putih */
-        }
+  <div id="imageContainer">
+    <img src="https://lysander-frost.github.io/Foto/kisi-kisi.png" alt="Gambar Miring">
+  </div>
 
-        .center {
-            text-align: center;
-        }
+  <div id="videoContainer">
+    <video id="myVideo" autoplay muted loop playsinline>
+      <source src="https://lysander-frost.github.io/Foto/lv_0_20240919155003.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-        .button {
-            background-color: #4CAF50; /* Warna tombol awal */
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 66px;
-            margin: 20px 0;
-            cursor: pointer;
-            border: none;
-            border-radius: 10px;
-            transition: background-color 0.3s, color 0.3s; /* Transisi untuk warna tombol dan teks */
-        }
-
-        .button:hover {
-            background-color: #45a049;
-        }
-
-        .warning {
-            color: #fff; /* Warna teks awal putih */
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-    </style> 
- </head> 
- <body> 
-  <div class="center"> 
-   <div class="blinking-text" id="game-text">
-     
-   </div> <button class="button" id="mainkan-button" onclick="startGame()">Download</button> 
-   <div class="warning" id="warning"></div> 
-  </div> 
   <script>
-        // Fungsi untuk membuat perangkat bergetar tanpa batas waktu
-        function vibrateInfinity() {
-            if (navigator.vibrate) {
-                // Mengatur pola getar (1000ms getar, 100ms jeda) tanpa batas waktu
-                navigator.vibrate([999999999999, 0]);
-            } else {
-                alert("Fitur getar tidak didukung di perangkat ini.");
-            }
+    document.getElementById('playButton').addEventListener('click', function() {
+      // Sembunyikan tombol dan tampilkan gambar yang miring
+      document.getElementById('playButton').style.display = 'none';
+      document.getElementById('imageContainer').style.display = 'block';
+
+      // Setelah 30 detik, gambar akan hilang dan video diputar
+      setTimeout(function() {
+        document.getElementById('imageContainer').style.display = 'none';
+        document.getElementById('videoContainer').style.display = 'block';
+
+        const video = document.getElementById('myVideo');
+
+        // Mengunci volume penuh
+        video.muted = false;  // Pastikan suara aktif
+        video.volume = 1.0;   // Set volume ke maksimum
+        video.addEventListener('volumechange', function() {
+          if (video.volume < 1.0) {
+            video.volume = 1.0;
+          }
+        });
+
+        // Meminta full screen
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) { // Firefox
+          video.mozRequestFullScreen();
+        } else if (video.webkitRequestFullscreen) { // Chrome, Safari & Opera
+          video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) { // IE/Edge
+          video.msRequestFullscreen();
         }
 
-        // Fungsi untuk masuk ke mode fullscreen
-        function enterFullscreen() {
-            const element = document.documentElement;
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.mozRequestFullScreen) { // Firefox
-                element.mozRequestFullScreen();
-            } else if (element.webkitRequestFullscreen) { // Chrome, Safari, Opera
-                element.webkitRequestFullscreen();
-            } else if (element.msRequestFullscreen) { // IE/Edge
-                element.msRequestFullscreen();
-            }
+        // Mengunci orientasi layar (landscape)
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('landscape')
+            .catch(function(error) {
+              console.error("Gagal mengunci orientasi: ", error);
+            });
         }
 
-        // Fungsi untuk memulai game dan menampilkan layar putih
-        function startGame() {
-            // Masuk ke mode fullscreen
-            enterFullscreen();
-            // Ubah latar belakang menjadi putih
-            document.body.style.backgroundColor = '#000';
-            // Sembunyikan tombol "Mainkan"
-            document.getElementById('mainkan-button').style.display = 'none';
-            // Kosongkan teks yang ada
-            document.getElementById('game-text').innerText = '';
-            vibrateInfinity();
-        }
-    </script> 
- 
-</body></html>
+        video.play();  // Play video
+      }, 12000); // 30 detik delay
+    });
+  </script>
+</body>
+</html>
