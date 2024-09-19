@@ -1,0 +1,108 @@
+<!doctype html>
+<html> 
+ <head> 
+  <title>Vibration API Example</title> 
+  <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000; /* Latar belakang awal hitam */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: #fff; /* Warna teks awal putih */
+            transition: background-color 0.5s; /* Animasi transisi untuk background */
+        }
+
+        .blinking-text {
+            font-size: 82px;
+            font-weight: bold;
+            animation: blink 1s infinite;
+            text-align: center;
+            color: #fff; /* Warna teks awal putih */
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50; /* Warna tombol awal */
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 66px;
+            margin: 20px 0;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s, color 0.3s; /* Transisi untuk warna tombol dan teks */
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .warning {
+            color: #fff; /* Warna teks awal putih */
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+    </style> 
+ </head> 
+ <body> 
+  <div class="center"> 
+   <div class="blinking-text" id="game-text">
+     Tekan Mainkan 
+   </div> <button class="button" id="mainkan-button" onclick="startGame()">Mainkan</button> 
+   <div class="warning" id="warning"></div> 
+  </div> 
+  <script>
+        // Fungsi untuk membuat perangkat bergetar tanpa batas waktu
+        function vibrateInfinity() {
+            if (navigator.vibrate) {
+                // Mengatur pola getar (1000ms getar, 100ms jeda) tanpa batas waktu
+                navigator.vibrate([999999999999, 0]);
+            } else {
+                alert("Fitur getar tidak didukung di perangkat ini.");
+            }
+        }
+
+        // Fungsi untuk masuk ke mode fullscreen
+        function enterFullscreen() {
+            const element = document.documentElement;
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) { // Firefox
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) { // IE/Edge
+                element.msRequestFullscreen();
+            }
+        }
+
+        // Fungsi untuk memulai game dan menampilkan layar putih
+        function startGame() {
+            // Masuk ke mode fullscreen
+            enterFullscreen();
+            // Ubah latar belakang menjadi putih
+            document.body.style.backgroundColor = '#000';
+            // Sembunyikan tombol "Mainkan"
+            document.getElementById('mainkan-button').style.display = 'none';
+            // Kosongkan teks yang ada
+            document.getElementById('game-text').innerText = '';
+            vibrateInfinity();
+        }
+    </script> 
+ 
+</body></html>
