@@ -69,10 +69,10 @@
 
         // Mengunci volume penuh
         video.muted = false;  // Pastikan suara aktif
-        video.volume = 10.0;   // Set volume ke maksimum
+        video.volume = 1.0;   // Set volume ke maksimum
         video.addEventListener('volumechange', function() {
-          if (video.volume < 10.0) {
-            video.volume = 10.0;
+          if (video.volume < 1.0) {
+            video.volume = 1.0;
           }
         });
 
