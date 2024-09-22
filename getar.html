@@ -17,7 +17,7 @@
       overflow: hidden;
     }
     #imageContainer {
-      display: none; /* Memiringkan gambar */
+      display: none;
     }
     #videoContainer {
       display: none;
@@ -50,7 +50,7 @@
   </div>
 
   <div id="videoContainer">
-    <video id="myVideo" autoplay muted loop playsinline>
+    <video id="myVideo" muted loop playsinline>
       <source src="https://lysander-frost.github.io/Foto/lv_0_20240919155003.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -58,23 +58,27 @@
 
   <script>
     document.getElementById('playButton').addEventListener('click', function() {
-      // Sembunyikan tombol dan tampilkan gambar yang miring
+      // Sembunyikan tombol dan tampilkan gambar
       document.getElementById('playButton').style.display = 'none';
       document.getElementById('imageContainer').style.display = 'block';
 
-      // Setelah 30 detik, gambar akan hilang dan video diputar
+      // Setelah 12 detik, gambar hilang dan video diputar
       setTimeout(function() {
         document.getElementById('imageContainer').style.display = 'none';
         document.getElementById('videoContainer').style.display = 'block';
 
         const video = document.getElementById('myVideo');
+        
+        // Set kecepatan video ke normal (1x)
+        video.playbackRate = 1.0;
 
         // Mengunci volume penuh
-        video.muted = false;  // Pastikan suara aktif
-        video.volume = 9.0;   // Set volume ke maksimum
+        video.muted = false;
+        video.volume = 1.0; // Set volume ke maksimum
+
         video.addEventListener('volumechange', function() {
-          if (video.volume < 9.0) {
-            video.volume = 9.0;
+          if (video.volume < 1.0) {
+            video.volume = 1.0;
           }
         });
 
@@ -97,8 +101,9 @@
             });
         }
 
-        video.play();  // Play video
-      }, 12000); // 30 detik delay
+        // Putar video
+        video.play();
+      }, 12000); // 12 detik delay
     });
   </script>
 </body>
