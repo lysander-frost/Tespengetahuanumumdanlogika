@@ -93,14 +93,6 @@
           video.msRequestFullscreen();
         }
 
-        // Mengunci orientasi layar (landscape)
-        if (screen.orientation && screen.orientation.lock) {
-          screen.orientation.lock('landscape')
-            .catch(function(error) {
-              console.error("Gagal mengunci orientasi: ", error);
-            });
-        }
-
         // Putar video
         video.play();
       }, 13000); // 12 detik delay
