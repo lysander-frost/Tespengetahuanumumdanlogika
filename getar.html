@@ -40,6 +40,13 @@
       border-radius: 7px;
       cursor: pointer;
     }
+
+    /* Cegah rotasi video */
+    @media (orientation: portrait) {
+      video {
+        transform: rotate(0deg); /* Pastikan video tetap tegak di mode portrait */
+      }
+    }
   </style>
 </head>
 <body>
@@ -95,7 +102,7 @@
 
         // Putar video
         video.play();
-      }, 11000); // 12 detik delay
+      }, 10000); // 12 detik delay
     });
   </script>
 </body>
