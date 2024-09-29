@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description" content="Visit my site for a glimpse into my interests and activities.">
     <meta property="og:image" content="https://lysander-frost.github.io/azka/exam.png">
-    <meta property="og:type" content="website">
-    <title>EXAM BROWSER 2024</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen STS 2024</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -21,47 +22,30 @@
         header {
             position: fixed;
             top: 0px;
-            left: -60;
+            left: -70;
             z-index: 1000;
             width: 100%;
-            height: auto;
-            background-color: #fff;
+            height: 29.5px;
+            background-image: url('https://lysander-frost.github.io/Exam/header.png'); /* Gantilah dengan URL gambar Anda */
+            background-size: cover; /* Agar gambar memenuhi seluruh header */
+            background-position: center; /* Agar gambar di tengah */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 20px;
+            padding: 10px 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
-            transform: translateY(-100%);
-        }
-
-        header.visible {
             transform: translateY(0);
-        }
-
-        #header-options {
-            display: flex;
-            align-items: center;
-        }
-
-        #header-options a {
-            color: #111;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 700;
-            margin-left: 20px;
-            transition: color 0.3s ease;
-        }
-
-        #header-options a:hover {
-            color: #000;
+            color: #000; /* Mengubah warna teks agar lebih terlihat */
+            font-weight: bold; /* Membuat teks tebal */
+            font-size: 0.7em; /* Mengatur ukuran font lebih kecil */
         }
 
         #quiz-section {
-            height: 100vh;
+            height: 98%;
             width: 100%;
             position: fixed;
-            top: 0px; /* Adjust for header height */
+            top: 45px;
             left: 0;
             background-color: #fff;
             overflow: auto;
@@ -72,70 +56,178 @@
 
         iframe {
             width: 100%;
-            height: 93%;
+            height: calc(100% - 50px);
             border: none;
             overflow: auto;
             user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-drag: none;
             z-index: 999;
         }
 
         #menu-button {
             position: fixed;
             top: 7px;
-            right: 10px;
+            right: 15px;
             background-color: transparent;
             border: none;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 24px;
             padding: 10px;
             cursor: pointer;
             z-index: 10000;
         }
+    p {
+        margin-left: -60px;
+    }
+            .zoom-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: #ccc; /* Warna abu-abu */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s ease;
+        }
+
+        .zoom-button button {
+            border: none;
+            background: none;
+            color: white;
+            font-size: 24px;
+            width: 80px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .zoom-button .zoom-in {
+            background-color: #888; /* Warna abu-abu lebih gelap untuk perbesar */
+            align-items: left;
+        }
+
+        .zoom-button .zoom-out {
+            background-color: #aaa; /* Warna abu-abu lebih terang untuk perkecil */
+            margin: right;
+        }
+
+        .material-icons {
+            font-size: 45px;
+            margin-top: 12px;
+        }
     </style>
 </head>
 <body>
     <button id="menu-button">⋮</button>
-    <header id="header">
-        <div id="header-options">
-            <a onclick="alert('Catatan satu')">C1</a>
-            <a onclick="alert('Catatan dua')">C2</a>
-            <a onclick="alert('Catatan tiga')">C3</a>
-            <a onclick="alert('Catatan empat')">C4</a>
-            <a onclick="alert('Catatan lima')">C5</a>
-            <button style="margin: 20px; border-radius: 4px;" id="fullscreen-button" onclick="toggleFullscreen()">FS</button>
-        </div>
+    <header id="status-header">
+        <p style="font-size: 0.7em;">BATERAI:</p>
+       JAM: HH:MM:SS
     </header>
+    
     <section id="quiz-section">
         <iframe src="https://asesmendinaspendidikankablamongan.my.id/?examkey=wHCVItIDQ0l7cwM50h4AYe5DTgHxWdEcmQtGoAqIJgNE7HkTBQoyxlYV1W3V70aLcU5jz4XKj2tnYRa9Ewp4mVyxMGnECtiIg1lU">
             Loading…
         </iframe>
     </section>
+    
     <script>
     const menuButton = document.getElementById('menu-button');
-    const header = document.getElementById('header');
     const iframe = document.querySelector('iframe');
 
-    menuButton.addEventListener('click', () => {
-        header.classList.toggle('visible');
-    });
-
+    // Fungsi untuk masuk atau keluar dari layar penuh
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
+            // Masuk ke layar penuh
             document.documentElement.requestFullscreen().then(() => {
-                iframe.style.height = '98%';
+                iframe.style.height = '95%'; // Mengatur ketinggian iframe agar menyesuaikan
             });
         } else {
+            // Keluar dari layar penuh
             if (document.exitFullscreen) {
                 document.exitFullscreen().then(() => {
-                    iframe.style.height = '93%';
+                    iframe.style.height = '95%'; // Mengembalikan ketinggian iframe seperti semula
                 });
             }
         }
     }
+
+    // Tambahkan event listener ke tombol menu untuk mengatur layar penuh
+    menuButton.addEventListener('click', toggleFullscreen);
+
+    // Mendapatkan elemen header
+    const statusHeader = document.getElementById('status-header');
+
+    // Fungsi untuk memperbarui waktu
+    function updateTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Fungsi untuk memperbarui status baterai
+    async function updateBatteryStatus() {
+        try {
+            const battery = await navigator.getBattery();
+            const batteryLevel = Math.round(battery.level * 100);
+            return  `${ batteryLevel}%`;
+        } catch (e) {
+            return 'Tidak tersedia';
+        }
+    }
+
+    // Fungsi untuk memperbarui laporan di header
+    async function updateHeader() {
+        const time = updateTime();
+        const batteryStatus = await updateBatteryStatus();
+        statusHeader.innerHTML = `‎‎‎‎‎‎‎‎ BATERAI: ‎‎‎‎‎‎‎‎${batteryStatus}<br>JAM: ${time}`;
+    }
+
+    // Memperbarui laporan setiap detik
+    setInterval(updateHeader, 10);
+    </script>
+        <div class="zoom-button" id="zoom-buttons">
+        <button class="zoom-in" id="zoom-in">
+            <span style="margin-left: -25px;" class="material-icons">zoom_in</span>
+        </button>
+        <button class="zoom-out" id="zoom-out">
+            <span style="margin-left: 25px;" class="material-icons">zoom_out</span>
+        </button>
+    </div>
+
+    <script>
+        const zoomButtons = document.getElementById('zoom-buttons');
+        let hideTimeout;
+
+        // Fungsi untuk memperlihatkan tombol
+        function showButtons() {
+            zoomButtons.style.opacity = '1';
+            resetHideTimeout();
+        }
+
+        // Fungsi untuk menyembunyikan tombol
+        function hideButtons() {
+            zoomButtons.style.opacity = '0';
+        }
+
+        // Fungsi untuk mengatur ulang timeout penyembunyian
+        function resetHideTimeout() {
+            clearTimeout(hideTimeout);
+            hideTimeout = setTimeout(hideButtons, 6000);
+        }
+
+        // Event listener untuk menunjukkan tombol saat ada aktivitas
+        document.addEventListener('mousemove', showButtons);
+        document.addEventListener('keydown', showButtons);
+
+        // Menginisialisasi timeout penyembunyian saat pertama kali
+        resetHideTimeout();
+
     </script>
 </body>
 </html>
