@@ -21,7 +21,7 @@
 
         header {
             position: fixed;
-            top: 0px;
+            top: 3px;
             left: -70;
             z-index: 1000;
             width: 100%;
@@ -39,6 +39,11 @@
             color: #000; /* Mengubah warna teks agar lebih terlihat */
             font-weight: bold; /* Membuat teks tebal */
             font-size: 0.7em; /* Mengatur ukuran font lebih kecil */
+                    -webkit-user-select: none; /* Nonaktifkan pemilihan teks *//* Nonaktifkan pemilihan teks */
+        -ms-user-select: none; /* Nonaktifkan pemilihan teks */
+        -moz-user-select: none; /* Nonaktifkan pemilihan teks */
+        /* Nonaktifkan semua interaksi dengan gambar */
+
         }
 
         #quiz-section {
@@ -108,24 +113,25 @@
         .zoom-button .zoom-in {
             background-color: #888; /* Warna abu-abu lebih gelap untuk perbesar */
             align-items: left;
+            color: #666
         }
 
         .zoom-button .zoom-out {
             background-color: #aaa; /* Warna abu-abu lebih terang untuk perkecil */
             margin: right;
+            color: #666
         }
 
         .material-icons {
             font-size: 45px;
-            margin-top: 12px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <button id="menu-button">⋮</button>
     <header id="status-header">
-        <p style="font-size: 0.7em;">BATERAI:</p>
-       JAM: HH:MM:SS
+
     </header>
     
     <section id="quiz-section">
@@ -193,10 +199,10 @@
     </script>
         <div class="zoom-button" id="zoom-buttons">
         <button class="zoom-in" id="zoom-in">
-            <span style="margin-left: -25px;" class="material-icons">zoom_in</span>
+            <span style="margin-left: -30px;" class="material-icons">zoom_in</span>
         </button>
         <button class="zoom-out" id="zoom-out">
-            <span style="margin-left: 25px;" class="material-icons">zoom_out</span>
+            <span style="margin-left: 45px;" class="material-icons">zoom_out</span>
         </button>
     </div>
 
@@ -218,7 +224,7 @@
         // Fungsi untuk mengatur ulang timeout penyembunyian
         function resetHideTimeout() {
             clearTimeout(hideTimeout);
-            hideTimeout = setTimeout(hideButtons, 6000);
+            hideTimeout = setTimeout(hideButtons, 10000);
         }
 
         // Event listener untuk menunjukkan tombol saat ada aktivitas
